@@ -16,6 +16,7 @@
 		A34C4C222C6DAB8300B25EEB /* FeedItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34C4C212C6DAB8300B25EEB /* FeedItemsMapper.swift */; };
 		A354C52A2C60933D000227A3 /* RemoteFeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A354C5292C60933D000227A3 /* RemoteFeedLoader.swift */; };
 		A38E48842C5CE8C1000D2BEC /* RemoteFeedLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38E48832C5CE8C1000D2BEC /* RemoteFeedLoaderTests.swift */; };
+		A3D2162D2C731E86007DFF7D /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2162C2C731E86007DFF7D /* URLSessionHTTPClientTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		A34C4C212C6DAB8300B25EEB /* FeedItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsMapper.swift; sourceTree = "<group>"; };
 		A354C5292C60933D000227A3 /* RemoteFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoader.swift; sourceTree = "<group>"; };
 		A38E48832C5CE8C1000D2BEC /* RemoteFeedLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoaderTests.swift; sourceTree = "<group>"; };
+		A3D2162C2C731E86007DFF7D /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				A38E48832C5CE8C1000D2BEC /* RemoteFeedLoaderTests.swift */,
+				A3D2162C2C731E86007DFF7D /* URLSessionHTTPClientTests.swift */,
 			);
 			path = "Feed API";
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A38E48842C5CE8C1000D2BEC /* RemoteFeedLoaderTests.swift in Sources */,
+				A3D2162D2C731E86007DFF7D /* URLSessionHTTPClientTests.swift in Sources */,
 				A31EFB1C2C52091A000CB063 /* EssentialFeedLETests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
