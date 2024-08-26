@@ -56,6 +56,7 @@
 		A3D0DC742C7C398F00AC2213 /* EssentialFeedLE.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EssentialFeedLE.xctestplan; sourceTree = "<group>"; };
 		A3D0DC792C7C3A8D00AC2213 /* EssentialFeedLEAPIEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialFeedLEAPIEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D0DC7B2C7C3A8D00AC2213 /* EssentialFeedLEAPIEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialFeedLEAPIEndToEndTests.swift; sourceTree = "<group>"; };
+		A3D0DC842C7C3E9100AC2213 /* CI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CI.xctestplan; sourceTree = "<group>"; };
 		A3D2162C2C731E86007DFF7D /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		A3D2163A2C75BFAF007DFF7D /* XCTTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +91,7 @@
 		A31EFB042C52091A000CB063 = {
 			isa = PBXGroup;
 			children = (
+				A3D0DC842C7C3E9100AC2213 /* CI.xctestplan */,
 				A3D0DC742C7C398F00AC2213 /* EssentialFeedLE.xctestplan */,
 				A31EFB102C52091A000CB063 /* EssentialFeedLE */,
 				A31EFB1A2C52091A000CB063 /* EssentialFeedLETests */,
