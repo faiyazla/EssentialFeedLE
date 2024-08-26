@@ -43,6 +43,7 @@
 		A354C5292C60933D000227A3 /* RemoteFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoader.swift; sourceTree = "<group>"; };
 		A38E48832C5CE8C1000D2BEC /* RemoteFeedLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoaderTests.swift; sourceTree = "<group>"; };
 		A3B9BBF62C7609330096B41E /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
+		A3D0DC742C7C398F00AC2213 /* EssentialFeedLE.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EssentialFeedLE.xctestplan; sourceTree = "<group>"; };
 		A3D2162C2C731E86007DFF7D /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		A3D2163A2C75BFAF007DFF7D /* XCTTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,6 +70,7 @@
 		A31EFB042C52091A000CB063 = {
 			isa = PBXGroup;
 			children = (
+				A3D0DC742C7C398F00AC2213 /* EssentialFeedLE.xctestplan */,
 				A31EFB102C52091A000CB063 /* EssentialFeedLE */,
 				A31EFB1A2C52091A000CB063 /* EssentialFeedLETests */,
 				A31EFB0F2C52091A000CB063 /* Products */,
