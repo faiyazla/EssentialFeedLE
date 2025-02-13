@@ -19,13 +19,17 @@ final class CacheFeedUseCaseTests: XCTestCase {
         }
         
         func save(_ items: [FeedItem]) {
-            store.deleteCachedFeedCallCount += 1
+            store.deleteCachedFeed()
         }
     }
     
     class FeedStore {
         var deleteCachedFeedCallCount = 0
         var insertCallCount = 0
+        
+        func deleteCachedFeed() {
+            deleteCachedFeedCallCount += 1
+        }
         
         func completeDeletion(with error: Error, at index: Int = 0) {
             
