@@ -9,12 +9,12 @@ import XCTest
 import EssentialFeedLE
 
 final class CacheFeedUseCaseTests: XCTestCase {
-
+    
     
     class LocalFeedLoader {
         private let store: FeedStore
         private let currentDate: () -> Date
-
+        
         init(store: FeedStore, currentDate: @escaping () -> Date) {
             self.store = store
             self.currentDate = currentDate
@@ -66,6 +66,10 @@ final class CacheFeedUseCaseTests: XCTestCase {
         func completeInsertion(with error: Error, at index: Int = 0) {
             insertionCompletions[index](error)
         }
+        
+        func completeInsertionSuccessfully(at index: Int = 0) {
+            insertionCompletions[index](nil)
+        }
     }
     
     func test_init_doesNotMessageStoreUponCreation() {
@@ -98,7 +102,7 @@ final class CacheFeedUseCaseTests: XCTestCase {
         let timestamp = Date()
         let items = [uniqueItem(), uniqueItem()]
         let (sut, store) = makeSUT(currentDate: { timestamp })
-    
+        
         sut.save(items) { _ in }
         store.completeDeletionSuccessfully()
         
@@ -138,6 +142,24 @@ final class CacheFeedUseCaseTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
         
         XCTAssertEqual(receivedError as NSError?, insertionError)
+    }
+    
+    func test_save_succeedsOnSuccessfulCacheInsertion() {
+        let items = [uniqueItem(), uniqueItem()]
+        let (sut, store) = makeSUT()
+        let exp = expectation(description: "Wait for save completion")
+        
+        var receivedError: Error?
+        sut.save(items) { error in
+            receivedError = error
+            exp.fulfill()
+        }
+        
+        store.completeDeletionSuccessfully()
+        store.completeInsertionSuccessfully()
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertNil(receivedError)
     }
     
     //MARK: Helpers
