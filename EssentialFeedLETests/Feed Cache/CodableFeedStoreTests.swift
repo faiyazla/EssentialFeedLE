@@ -8,7 +8,7 @@
 import XCTest
 import EssentialFeedLE
 
-final class CodableFeedStoreTests: XCTestCase {
+final class CodableFeedStoreTests: XCTestCase, FailableFeedStoreSpecs {
     
     override func setUp()  {
         super.setUp()
@@ -34,7 +34,7 @@ final class CodableFeedStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .empty)
     }
     
-    func test_retrieve_delieversFoundValueOnNonEmptyCache() {
+    func test_retrieve_deliversFoundValuesOnNonEmptyCache() {
         
         let sut = makeSUT()
         let feed = uniqueImageFeed().local
@@ -54,7 +54,7 @@ final class CodableFeedStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .found(feed: feed, timestamp: timestamp))
     }
     
-    func test_retrieve_deliversErrorOnRetrievalError() {
+    func test_retrieve_deliversFailureOnRetrievalError() {
         let storeURL = testSpecificURL()
         let sut = makeSUT(storeURL: storeURL)
         
@@ -77,6 +77,14 @@ final class CodableFeedStoreTests: XCTestCase {
         let insertionError = insert((uniqueImageFeed().local, Date()), to: sut)
         
         XCTAssertNil(insertionError, "Expected to insert cache successfully")
+    }
+    
+    func test_delete_deliversNoErrorOnEmptyCache() {
+        let sut = makeSUT()
+        
+        let deletionError = deleteCache(from: sut)
+        
+        XCTAssertNil(deletionError, "Expected empty cache deletion to succeed")
     }
     
     func test_insert_deliversNoErrorOnNonEmptyCache() {
@@ -166,7 +174,7 @@ final class CodableFeedStoreTests: XCTestCase {
          expect(sut, toRetrieve: .empty)
      }
     
-    func test_storeSideEffectsRunSerially() {
+    func test_storeSideEffects_runSerially() {
         let sut = makeSUT()
         var completionOperationsInOrder = [XCTestExpectation]()
         
@@ -240,6 +248,7 @@ final class CodableFeedStoreTests: XCTestCase {
         return insertionError
     }
     
+    @discardableResult
     private func deleteCache(from sut: FeedStore) -> Error? {
         let exp = expectation(description: "Wait for cache deletion")
         var deletionError: Error?
