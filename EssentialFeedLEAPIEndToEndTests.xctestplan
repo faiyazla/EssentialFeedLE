@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "0A04AFE2-D692-4F3A-B125-729EFC7E4C7A",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:EssentialFeedLE.xcodeproj",
+        "identifier" : "A3D0DC782C7C3A8D00AC2213",
+        "name" : "EssentialFeedLEAPIEndToEndTests"
+      }
+    }
+  ],
+  "version" : 1
+}

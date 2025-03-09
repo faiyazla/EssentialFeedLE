@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "6BCD8BC1-9039-4F0A-88CB-C405B31CBAC4",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:EssentialFeedLE.xcodeproj",
+        "identifier" : "A30F9FA02D7D54D000B83339",
+        "name" : "EssentialFeedLEiOSTests"
+      }
+    }
+  ],
+  "version" : 1
+}
