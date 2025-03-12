@@ -12,6 +12,7 @@ import EssentialFeedLE
 final class FeedViewController: UITableViewController {
     
     private var loader: FeedLoader?
+    private var onViewIsAppearing: ((FeedViewController) -> Void)?
     
     convenience init(loader: FeedLoader) {
         self.init()
@@ -23,11 +24,25 @@ final class FeedViewController: UITableViewController {
         
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        
+        onViewIsAppearing = { vc in
+            vc.refresh()
+            vc.onViewIsAppearing = nil
+        }
         load()
+    }
+    
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        onViewIsAppearing?(self)
     }
     
     @objc func load() {
         loader?.load { _ in }
+    }
+    
+    @objc private func refresh() {
+        refreshControl?.beginRefreshing()
     }
 }
 
@@ -58,6 +73,22 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCallCount, 3)
     }
     
+    func test_viewDidLoad_showsLoadingIndicator() {
+        let (sut, _) = makeSUT()
+        
+        sut.simulateAppearance()
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+        
+//        sut.refreshControl?.endRefreshing()
+//        sut.refreshControl?.sendActions(for: .valueChanged)
+//        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+//        
+//        sut.refreshControl?.endRefreshing()
+//        sut.simulateAppearance()
+//        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
+        
+    }
+    
     //MARK: Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
@@ -75,6 +106,7 @@ final class FeedViewControllerTests: XCTestCase {
             loadCallCount += 1
         }
     }
+    
 }
 
 private extension UIRefreshControl {
@@ -84,5 +116,42 @@ private extension UIRefreshControl {
                 (target as NSObject).perform(Selector($0))
             }
         }
+    }
+}
+
+private class FakeRefreshControl: UIRefreshControl {
+    private var _isRefreshing = false
+    
+    override var isRefreshing: Bool { _isRefreshing }
+    
+    override func beginRefreshing() {
+        _isRefreshing = true
+    }
+    
+    override func endRefreshing() {
+        _isRefreshing = false
+    }
+}
+
+private extension FeedViewController {
+    
+    func simulateAppearance() {
+        if !isViewLoaded {
+            loadViewIfNeeded()
+            replaceRefreshControlWithFakeOrIOS17Support()
+        }
+        beginAppearanceTransition(true, animated: false)//viewWillAppear
+        endAppearanceTransition() //viewIsAppearing+viewDidAppear
+    }
+    
+    func replaceRefreshControlWithFakeOrIOS17Support() {
+        let fake = FakeRefreshControl()
+        refreshControl?.allTargets.forEach { target in
+            refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach {
+                action in
+                fake.addTarget(target, action: Selector(action), for: .valueChanged)
+            }
+        }
+        refreshControl = fake
     }
 }
