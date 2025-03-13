@@ -101,7 +101,7 @@ private class FakeRefreshControl: UIRefreshControl {
 private extension FeedViewController {
     
     func simulateUserInitiatedFeedReload() {
-        replaceRefreshControlWithFakeOrIOS17Support()
+        refreshControl?.simulatePullToRefresh()
     }
     
     var isShowingLoadingIndicator: Bool {
