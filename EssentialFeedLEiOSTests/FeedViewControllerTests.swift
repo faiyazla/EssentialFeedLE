@@ -130,60 +130,83 @@ final class FeedViewControllerTests: XCTestCase {
     }
     
     func test_feedImageView_rendersImageLoadedFromURL() {
-         let (sut, loader) = makeSUT()
-
+        let (sut, loader) = makeSUT()
+        
         sut.simulateAppearance()
-         loader.completeFeedLoading(with: [makeImage(), makeImage()])
-
-         let view0 = sut.simulateFeedImageViewVisible(at: 0)
-         let view1 = sut.simulateFeedImageViewVisible(at: 1)
-         XCTAssertEqual(view0?.renderedImage, .none, "Expected no image for first view while loading first image")
-         XCTAssertEqual(view1?.renderedImage, .none, "Expected no image for second view while loading second image")
-
-         let imageData0 = UIImage.make(withColor: .red).pngData()!
-         loader.completeImageLoading(with: imageData0, at: 0)
-         XCTAssertEqual(view0?.renderedImage, imageData0, "Expected image for first view once first image loading completes successfully")
-         XCTAssertEqual(view1?.renderedImage, .none, "Expected no image state change for second view once first image loading completes successfully")
-
-         let imageData1 = UIImage.make(withColor: .blue).pngData()!
-         loader.completeImageLoading(with: imageData1, at: 1)
-         XCTAssertEqual(view0?.renderedImage, imageData0, "Expected no image state change for first view once second image loading completes successfully")
-         XCTAssertEqual(view1?.renderedImage, imageData1, "Expected image for second view once second image loading completes successfully")
-     }
+        loader.completeFeedLoading(with: [makeImage(), makeImage()])
+        
+        let view0 = sut.simulateFeedImageViewVisible(at: 0)
+        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        XCTAssertEqual(view0?.renderedImage, .none, "Expected no image for first view while loading first image")
+        XCTAssertEqual(view1?.renderedImage, .none, "Expected no image for second view while loading second image")
+        
+        let imageData0 = UIImage.make(withColor: .red).pngData()!
+        loader.completeImageLoading(with: imageData0, at: 0)
+        XCTAssertEqual(view0?.renderedImage, imageData0, "Expected image for first view once first image loading completes successfully")
+        XCTAssertEqual(view1?.renderedImage, .none, "Expected no image state change for second view once first image loading completes successfully")
+        
+        let imageData1 = UIImage.make(withColor: .blue).pngData()!
+        loader.completeImageLoading(with: imageData1, at: 1)
+        XCTAssertEqual(view0?.renderedImage, imageData0, "Expected no image state change for first view once second image loading completes successfully")
+        XCTAssertEqual(view1?.renderedImage, imageData1, "Expected image for second view once second image loading completes successfully")
+    }
     
     func test_feedImageViewRetryButton_isVisibleOnInvalidImageData() {
-         let (sut, loader) = makeSUT()
-
-         sut.simulateAppearance()
-         loader.completeFeedLoading(with: [makeImage()])
-
-         let view = sut.simulateFeedImageViewVisible(at: 0)
-         XCTAssertEqual(view?.isShowingRetryAction, false, "Expected no retry action while loading image")
-
-         let invalidImageData = Data("invalid image data".utf8)
-         loader.completeImageLoading(with: invalidImageData, at: 0)
-         XCTAssertEqual(view?.isShowingRetryAction, true, "Expected retry action once image loading completes with invalid image data")
-     }
+        let (sut, loader) = makeSUT()
+        
+        sut.simulateAppearance()
+        loader.completeFeedLoading(with: [makeImage()])
+        
+        let view = sut.simulateFeedImageViewVisible(at: 0)
+        XCTAssertEqual(view?.isShowingRetryAction, false, "Expected no retry action while loading image")
+        
+        let invalidImageData = Data("invalid image data".utf8)
+        loader.completeImageLoading(with: invalidImageData, at: 0)
+        XCTAssertEqual(view?.isShowingRetryAction, true, "Expected retry action once image loading completes with invalid image data")
+    }
     
     func test_feedImageViewRetryButton_isVisibleOnImageURLLoadError() {
         let (sut, loader) = makeSUT()
-
+        
         sut.simulateAppearance()
         loader.completeFeedLoading(with: [makeImage(), makeImage()])
-
+        
         let view0 = sut.simulateFeedImageViewVisible(at: 0)
         let view1 = sut.simulateFeedImageViewVisible(at: 1)
         XCTAssertEqual(view0?.isShowingRetryAction, false, "Expected no retry action for first view while loading first image")
         XCTAssertEqual(view1?.isShowingRetryAction, false, "Expected no retry action for second view while loading second image")
-
+        
         let imageData = UIImage.make(withColor: .red).pngData()!
         loader.completeImageLoading(with: imageData, at: 0)
         XCTAssertEqual(view0?.isShowingRetryAction, false, "Expected no retry action for first view once first image loading completes successfully")
         XCTAssertEqual(view1?.isShowingRetryAction, false, "Expected no retry action state change for second view once first image loading completes successfully")
-
+        
         loader.completeImageLoadingWithError(at: 1)
         XCTAssertEqual(view0?.isShowingRetryAction, false, "Expected no retry action state change for first view once second image loading completes with error")
         XCTAssertEqual(view1?.isShowingRetryAction, true, "Expected retry action for second view once second image loading completes with error")
+    }
+    
+    func test_feedImageViewRetryAction_retriesImageLoad() {
+        let image0 = makeImage(url: URL(string: "http://url-0.com")!)
+        let image1 = makeImage(url: URL(string: "http://url-1.com")!)
+        let (sut, loader) = makeSUT()
+        
+        sut.simulateAppearance()
+        loader.completeFeedLoading(with: [image0, image1])
+        
+        let view0 = sut.simulateFeedImageViewVisible(at: 0)
+        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url, image1.url], "Expected two image URL request for the two visible views")
+        
+        loader.completeImageLoadingWithError(at: 0)
+        loader.completeImageLoadingWithError(at: 1)
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url, image1.url], "Expected only two image URL requests before retry action")
+        
+        view0?.simulateRetryAction()
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url, image1.url, image0.url], "Expected third imageURL request after first view retry action")
+        
+        view1?.simulateRetryAction()
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url, image1.url, image0.url, image1.url], "Expected fourth imageURL request after second view retry action")
     }
     
     //MARK: Helpers
@@ -382,21 +405,33 @@ private extension FeedImageCell {
         return feedImageContainer.isShimmering
     }
     var renderedImage: Data? {
-         return feedImageView.image?.pngData()
-     }
+        return feedImageView.image?.pngData()
+    }
     var isShowingRetryAction: Bool {
         return !feedImageRetryButton.isHidden
     }
+    func simulateRetryAction() {
+        feedImageRetryButton.simulateTap()
+    }
 }
 extension UIImage {
-     static func make(withColor color: UIColor) -> UIImage {
-         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
-         let format = UIGraphicsImageRendererFormat()
-         format.scale = 1
-
-         return UIGraphicsImageRenderer(size: rect.size, format: format).image { rendererContext in
-             color.setFill()
-             rendererContext.fill(rect)
-         }
-     }
- }
+    static func make(withColor color: UIColor) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        
+        return UIGraphicsImageRenderer(size: rect.size, format: format).image { rendererContext in
+            color.setFill()
+            rendererContext.fill(rect)
+        }
+    }
+}
+private extension UIButton {
+    func simulateTap() {
+        allTargets.forEach { target in
+            actions(forTarget: target, forControlEvent: .touchUpInside)?.forEach {
+                (target as NSObject).perform(Selector($0))
+            }
+        }
+    }
+}
