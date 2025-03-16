@@ -12,3 +12,4 @@ extension UIRefreshControl {
         simulate(event: .valueChanged)
     }
 }
+
