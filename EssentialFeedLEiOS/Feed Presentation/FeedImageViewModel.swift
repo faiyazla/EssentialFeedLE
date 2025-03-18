@@ -5,7 +5,6 @@
 //  Created by Faiyaz Ahmed on 18/03/2025.
 //
 
-import Foundation
 import EssentialFeedLE
 
 final class FeedImageViewModel<Image> {
