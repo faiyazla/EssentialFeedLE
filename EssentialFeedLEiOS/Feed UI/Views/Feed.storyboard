@@ -125,6 +125,7 @@ Location</string>
                         <connections>
                             <outlet property="dataSource" destination="5PN-Dp-HK0" id="e68-bE-r2M"/>
                             <outlet property="delegate" destination="5PN-Dp-HK0" id="COk-cH-gEg"/>
+                            <outlet property="prefetchDataSource" destination="5PN-Dp-HK0" id="Cmx-Bh-mrm"/>
                         </connections>
                     </tableView>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="CIL-iE-c04">
