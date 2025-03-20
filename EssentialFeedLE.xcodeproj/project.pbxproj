@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 73;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -127,10 +127,30 @@
 		A3D2163A2C75BFAF007DFF7D /* XCTTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A3BA7C202D8C38DF006124C7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Feed Presentation/Feed.strings",
+			);
+			target = A30F9F992D7D54D000B83339 /* EssentialFeedLEiOS */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		A3BA7C212D8C38DF006124C7 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = A30F9F962D7D54D000B83339 /* Sources */;
+			membershipExceptions = (
+				"Feed Presentation/Feed.strings",
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A30895D92D718398006619E5 /* CoreData */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CoreData; sourceTree = "<group>"; };
 		A30895F12D755C14006619E5 /* EssentialFeedCacheIntegrationLETests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedCacheIntegrationLETests; sourceTree = "<group>"; };
-		A30F9F9B2D7D54D000B83339 /* EssentialFeedLEiOS */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedLEiOS; sourceTree = "<group>"; };
+		A30F9F9B2D7D54D000B83339 /* EssentialFeedLEiOS */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A3BA7C202D8C38DF006124C7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, A3BA7C212D8C38DF006124C7 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedLEiOS; sourceTree = "<group>"; };
 		A30F9FA52D7D54D000B83339 /* EssentialFeedLEiOSTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedLEiOSTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -522,7 +542,6 @@
 				};
 			};
 			buildConfigurationList = A31EFB082C52091A000CB063 /* Build configuration list for PBXProject "EssentialFeedLE" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -530,6 +549,7 @@
 				Base,
 			);
 			mainGroup = A31EFB042C52091A000CB063;
+			preferredProjectObjectVersion = 56;
 			productRefGroup = A31EFB0F2C52091A000CB063 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
