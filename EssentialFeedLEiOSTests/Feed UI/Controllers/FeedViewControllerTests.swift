@@ -14,18 +14,18 @@ import EssentialFeedLEiOS
 final class FeedViewControllerTests: XCTestCase {
     
     func test_loadFeedActions_requestFeedFromLoader() {
-//        let (sut, loader) = makeSUT()
-//        
-//        XCTAssertEqual(loader.loadFeedCallCount, 0, "Expected no loading requests before view is loaded")
-//        
-//        sut.simulateAppearance()
-//        XCTAssertEqual(loader.loadFeedCallCount, 1, "Expected a loading request once view is loaded")
-//        
-//        sut.simulateUserInitiatedFeedReload()
-//        XCTAssertEqual(loader.loadFeedCallCount, 2, "Expected another loading request once user initiates a reload")
-//        
-//        sut.simulateUserInitiatedFeedReload()
-//        XCTAssertEqual(loader.loadFeedCallCount, 3, "Expected yet another loading request once user initiates another reload")
+        let (sut, loader) = makeSUT()
+        
+        XCTAssertEqual(loader.loadFeedCallCount, 0, "Expected no loading requests before view is loaded")
+        
+        sut.simulateAppearance()
+        XCTAssertEqual(loader.loadFeedCallCount, 1, "Expected a loading request once view is loaded")
+        
+        sut.simulateUserInitiatedFeedReload()
+        XCTAssertEqual(loader.loadFeedCallCount, 2, "Expected another loading request once user initiates a reload")
+        
+        sut.simulateUserInitiatedFeedReload()
+        XCTAssertEqual(loader.loadFeedCallCount, 3, "Expected yet another loading request once user initiates another reload")
     }
     
     func test_loadingFeedIndicator_isVisibleWhileLoadingFeed() {
@@ -37,8 +37,7 @@ final class FeedViewControllerTests: XCTestCase {
         loader.completeFeedLoading(at: 0)
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes successfully")
         
-        sut.refreshControl?.beginRefreshing()
-        sut.refreshControl?.sendActions(for: .valueChanged)
+        sut.simulateUserInitiatedFeedReload()
         XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once user initiates a reload")
         
         loader.completeFeedLoadingWithError(at: 1)
