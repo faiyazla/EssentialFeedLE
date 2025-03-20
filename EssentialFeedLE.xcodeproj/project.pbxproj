@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 73;
+	objectVersion = 76;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -131,7 +131,7 @@
 		A3BA7C202D8C38DF006124C7 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"Feed Presentation/Feed.strings",
+				"/Localized/Feed Presentation/Feed.strings",
 			);
 			target = A30F9F992D7D54D000B83339 /* EssentialFeedLEiOS */;
 		};
@@ -142,7 +142,7 @@
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = A30F9F962D7D54D000B83339 /* Sources */;
 			membershipExceptions = (
-				"Feed Presentation/Feed.strings",
+				"/Localized/Feed Presentation/Feed.strings",
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
