@@ -34,6 +34,10 @@ extension FeedViewController {
         return refreshControl?.isRefreshing == true
     }
     
+    var errorMessage: String? {
+        return errorView.message
+    }
+    
     func numberOfRenderedFeedImageViews() -> Int {
         return tableView.numberOfRows(inSection: feedImagesSection)
     }
@@ -85,5 +89,18 @@ extension FeedViewController {
          let ds = tableView.prefetchDataSource
          let index = IndexPath(row: row, section: feedImagesSection)
          ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
+    }
+}
+private class FakeRefreshControl: UIRefreshControl {
+    private var _isRefreshing = false
+    
+    override var isRefreshing: Bool { _isRefreshing }
+    
+    override func beginRefreshing() {
+        _isRefreshing = true
+    }
+    
+    override func endRefreshing() {
+        _isRefreshing = false
     }
 }
