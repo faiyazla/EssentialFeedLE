@@ -19,17 +19,23 @@
                             <rect key="frame" x="0.0" y="0.0" width="393" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WaE-Ut-WoF">
-                                    <rect key="frame" x="176" y="-2.3333333333333339" width="41.333333333333343" height="20.666666666666671"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WaE-Ut-WoF">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="16"/>
+                                    <gestureRecognizers/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="yyw-2n-7OE" appends="YES" id="JNo-JR-ULk"/>
+                                    </connections>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstItem="WaE-Ut-WoF" firstAttribute="centerX" secondItem="VW4-hh-Lko" secondAttribute="centerX" id="7f3-yP-dv9"/>
-                                <constraint firstItem="WaE-Ut-WoF" firstAttribute="centerY" secondItem="VW4-hh-Lko" secondAttribute="centerY" id="I2e-zY-dIF"/>
+                                <constraint firstItem="WaE-Ut-WoF" firstAttribute="leading" secondItem="VW4-hh-Lko" secondAttribute="leading" id="dED-jB-uDt"/>
+                                <constraint firstAttribute="bottom" secondItem="WaE-Ut-WoF" secondAttribute="bottom" id="riL-xv-OYV"/>
+                                <constraint firstItem="WaE-Ut-WoF" firstAttribute="top" secondItem="VW4-hh-Lko" secondAttribute="top" id="sKg-Qc-UBk"/>
+                                <constraint firstAttribute="trailing" secondItem="WaE-Ut-WoF" secondAttribute="trailing" id="zo4-zN-xJ9"/>
                             </constraints>
                             <connections>
                                 <outlet property="label" destination="WaE-Ut-WoF" id="lek-CT-h1l"/>
@@ -166,6 +172,11 @@ Location</string>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JRH-4B-6yb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="yyw-2n-7OE">
+                    <connections>
+                        <action selector="hideMessageAnimated" destination="VW4-hh-Lko" id="QAx-TS-tFJ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2" y="-13"/>
         </scene>
