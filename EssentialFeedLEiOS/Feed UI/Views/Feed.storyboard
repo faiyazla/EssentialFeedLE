@@ -18,7 +18,22 @@
                         <view key="tableHeaderView" contentMode="scaleToFill" id="VW4-hh-Lko" customClass="ErrorView" customModule="EssentialFeedLEiOS" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WaE-Ut-WoF">
+                                    <rect key="frame" x="176" y="-2.3333333333333339" width="41.333333333333343" height="20.666666666666671"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="WaE-Ut-WoF" firstAttribute="centerX" secondItem="VW4-hh-Lko" secondAttribute="centerX" id="7f3-yP-dv9"/>
+                                <constraint firstItem="WaE-Ut-WoF" firstAttribute="centerY" secondItem="VW4-hh-Lko" secondAttribute="centerY" id="I2e-zY-dIF"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="label" destination="WaE-Ut-WoF" id="lek-CT-h1l"/>
+                            </connections>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="x6v-pN-Qq3">
                             <rect key="frame" x="0.0" y="674" width="393" height="16"/>
