@@ -1,8 +1,8 @@
 //
-//  FeedUIIntegrationTests+TestHelpers.swift
-//  EssentialFeedLEiOSTests
+//  FeedViewController+TestHelpers.swift
+//  EssentialFeedLE
 //
-//  Created by Faiyaz Ahmed on 16/03/2025.
+//  Created by Faiyaz Ahmed on 25/03/2025.
 //
 
 import UIKit
@@ -85,18 +85,5 @@ extension FeedViewController {
          let ds = tableView.prefetchDataSource
          let index = IndexPath(row: row, section: feedImagesSection)
          ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
-    }
-}
-private class FakeRefreshControl: UIRefreshControl {
-    private var _isRefreshing = false
-    
-    override var isRefreshing: Bool { _isRefreshing }
-    
-    override func beginRefreshing() {
-        _isRefreshing = true
-    }
-    
-    override func endRefreshing() {
-        _isRefreshing = false
     }
 }
