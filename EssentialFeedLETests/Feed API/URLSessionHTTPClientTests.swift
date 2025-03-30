@@ -10,16 +10,10 @@ import EssentialFeedLE
 
 final class URLSessionHTTPClientTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        
-        URLProtocolStub.startInterceptingRequest()
-    }
-    
     override func tearDown() {
         super.tearDown()
         
-        URLProtocolStub.stopInterceptingRequest()
+        URLProtocolStub.removeStub()
     }
     
     func test_getFromURL_performsGETRequestsWithURL() {
@@ -87,7 +81,10 @@ final class URLSessionHTTPClientTests: XCTestCase {
     //MARK: Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> HTTPClient {
-        let sut = URLSessionHTTPClient()
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [URLProtocolStub.self]
+        let session = URLSession(configuration: configuration)
+        let sut = URLSessionHTTPClient(session: session)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
@@ -170,16 +167,12 @@ final class URLSessionHTTPClientTests: XCTestCase {
         static func stub(data: Data?, response: URLResponse?, error: Error? = nil) {
             stub = Stub(data: data, response: response, error: error, requestObserver: nil)
         }
-        static func startInterceptingRequest() {
-            URLProtocol.registerClass(URLProtocolStub.self)
-        }
         
         static func observeRequest(observer: @escaping (URLRequest) -> Void) {
             stub = Stub(data: nil, response: nil, error: nil, requestObserver: observer)
         }
         
-        static func stopInterceptingRequest() {
-            URLProtocol.unregisterClass(URLProtocolStub.self)
+        static func removeStub() {
             stub = nil
         }
         
