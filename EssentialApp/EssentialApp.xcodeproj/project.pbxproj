@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A37649252D9CF1EB00547988 /* EssentialFeedLE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A37649232D9CF1EB00547988 /* EssentialFeedLE.framework */; };
+		A37649262D9CF1EB00547988 /* EssentialFeedLE.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A37649232D9CF1EB00547988 /* EssentialFeedLE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A37649272D9CF1EB00547988 /* EssentialFeedLEiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A37649242D9CF1EB00547988 /* EssentialFeedLEiOS.framework */; };
+		A37649282D9CF1EB00547988 /* EssentialFeedLEiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A37649242D9CF1EB00547988 /* EssentialFeedLEiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		A37648492D9CEF6400547988 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -23,10 +30,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		A37649292D9CF1EB00547988 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A37649282D9CF1EB00547988 /* EssentialFeedLEiOS.framework in Embed Frameworks */,
+				A37649262D9CF1EB00547988 /* EssentialFeedLE.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		A37648322D9CEF6300547988 /* EssentialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EssentialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A37648482D9CEF6400547988 /* EssentialAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A37648522D9CEF6400547988 /* EssentialAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A37649232D9CF1EB00547988 /* EssentialFeedLE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EssentialFeedLE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A37649242D9CF1EB00547988 /* EssentialFeedLEiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EssentialFeedLEiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -65,6 +89,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A37649272D9CF1EB00547988 /* EssentialFeedLEiOS.framework in Frameworks */,
+				A37649252D9CF1EB00547988 /* EssentialFeedLE.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +117,7 @@
 				A37648342D9CEF6300547988 /* EssentialApp */,
 				A376484B2D9CEF6400547988 /* EssentialAppTests */,
 				A37648552D9CEF6400547988 /* EssentialAppUITests */,
+				A37649222D9CF1EB00547988 /* Frameworks */,
 				A37648332D9CEF6300547988 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,6 +132,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		A37649222D9CF1EB00547988 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A37649232D9CF1EB00547988 /* EssentialFeedLE.framework */,
+				A37649242D9CF1EB00547988 /* EssentialFeedLEiOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -115,6 +151,7 @@
 				A376482E2D9CEF6300547988 /* Sources */,
 				A376482F2D9CEF6300547988 /* Frameworks */,
 				A37648302D9CEF6300547988 /* Resources */,
+				A37649292D9CF1EB00547988 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -295,8 +332,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -323,8 +359,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
