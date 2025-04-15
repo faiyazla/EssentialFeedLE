@@ -14,9 +14,7 @@ class FeedAcceptanceTests: XCTestCase {
     
     func test_onLaunch_displaysRemoteFeedWhenCustomerHasConnectivity() {
         let feed = launch(httpClient: .online(response), store: .empty)
-        
-        feed.simulateAppearance()
-        
+                
         XCTAssertEqual(feed.numberOfRenderedFeedImageViews(), 2)
         XCTAssertEqual(feed.renderedFeedImageData(at: 0), makeImageData())
         XCTAssertEqual(feed.renderedFeedImageData(at: 1), makeImageData())
@@ -41,7 +39,9 @@ class FeedAcceptanceTests: XCTestCase {
         sut.configureWindow()
         
         let nav = sut.window?.rootViewController as? UINavigationController
-        return nav?.topViewController as! FeedViewController
+        let vc = nav?.topViewController as! FeedViewController
+        vc.simulateAppearance()
+        return vc
     }
     
     private class HTTPClientStub: HTTPClient {
