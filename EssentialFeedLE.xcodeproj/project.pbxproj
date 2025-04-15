@@ -184,7 +184,6 @@
 		A30895D92D718398006619E5 /* CoreData */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CoreData; sourceTree = "<group>"; };
 		A30895F12D755C14006619E5 /* EssentialFeedCacheIntegrationLETests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedCacheIntegrationLETests; sourceTree = "<group>"; };
 		A30F9F9B2D7D54D000B83339 /* EssentialFeedLEiOS */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedLEiOS; sourceTree = "<group>"; };
-		A30F9FA52D7D54D000B83339 /* EssentialFeedLEiOSTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedLEiOSTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,7 +271,6 @@
 				A3D0DC7A2C7C3A8D00AC2213 /* EssentialFeedLEAPIEndToEndTests */,
 				A30895F12D755C14006619E5 /* EssentialFeedCacheIntegrationLETests */,
 				A30F9F9B2D7D54D000B83339 /* EssentialFeedLEiOS */,
-				A30F9FA52D7D54D000B83339 /* EssentialFeedLEiOSTests */,
 				A31EFB0F2C52091A000CB063 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -528,9 +526,6 @@
 			);
 			dependencies = (
 				A30F9FA42D7D54D000B83339 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				A30F9FA52D7D54D000B83339 /* EssentialFeedLEiOSTests */,
 			);
 			name = EssentialFeedLEiOSTests;
 			packageProductDependencies = (
