@@ -34,6 +34,10 @@ extension FeedViewController {
         return refreshControl?.isRefreshing == true
     }
     
+    func renderedFeedImageData(at index: Int) -> Data? {
+        return simulateFeedImageViewVisible(at: index)?.renderedImage
+    }
+    
     var errorMessage: String? {
         return errorView?.message
     }
@@ -84,11 +88,11 @@ extension FeedViewController {
     }
     
     func simulateFeedImageViewNotNearVisible(at row: Int) {
-         simulateFeedImageViewNearVisible(at: row)
-
-         let ds = tableView.prefetchDataSource
-         let index = IndexPath(row: row, section: feedImagesSection)
-         ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
+        simulateFeedImageViewNearVisible(at: row)
+        
+        let ds = tableView.prefetchDataSource
+        let index = IndexPath(row: row, section: feedImagesSection)
+        ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
     }
 }
 private class FakeRefreshControl: UIRefreshControl {
