@@ -51,7 +51,7 @@ private class DebuggingHTTPClient: HTTPClient {
         return Task()
     }
     private func makeSuccessFullResponse(for url: URL) -> (Data, HTTPURLResponse) {
-        let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+        let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
         return (makeData(for: url), response)
     }
     
