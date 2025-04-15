@@ -13,7 +13,11 @@ import CoreData
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-        
+    
+    private lazy var localFeedLoader: LocalFeedLoader = {
+         LocalFeedLoader(store: store, currentDate: Date.init)
+     }()
+    
     private lazy var httpClient: HTTPClient = {
         URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
     }()
@@ -47,8 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         _ = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
         let remoteFeedLoader = RemoteFeedLoader(url: remoteURL, client: httpClient)
         let remoteImageLoader = RemoteFeedImageDataLoader(client: httpClient)
-        
-        let localFeedLoader = LocalFeedLoader(store: store, currentDate: Date.init)
+
         let localImageLoader = LocalFeedImageDataLoader(store: store)
         
         window?.rootViewController = UINavigationController(rootViewController:
@@ -64,4 +67,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                                                             decoratee: remoteImageLoader,
                                                                             cache: localImageLoader))))
     }
+    
+    func sceneWillResignActive(_ scene: UIScene) {
+         localFeedLoader.validateCache { _ in }
+     }
 }
