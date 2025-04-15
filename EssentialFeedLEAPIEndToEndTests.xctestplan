@@ -22,7 +22,7 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
+      "parallelizable" : false,
       "target" : {
         "containerPath" : "container:EssentialFeedLE.xcodeproj",
         "identifier" : "A3D0DC782C7C3A8D00AC2213",
