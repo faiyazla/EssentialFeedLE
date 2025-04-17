@@ -40,7 +40,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A30F9FA02D7D54D000B83339"
+               BlueprintIdentifier = "A3764CDA2DB0B25400547988"
                BuildableName = "EssentialFeedLEiOSTests.xctest"
                BlueprintName = "EssentialFeedLEiOSTests"
                ReferencedContainer = "container:EssentialFeedLE.xcodeproj">
