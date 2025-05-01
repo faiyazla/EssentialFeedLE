@@ -299,6 +299,7 @@
 		A31EFB102C52091A000CB063 /* EssentialFeedLE */ = {
 			isa = PBXGroup;
 			children = (
+				A36C706F2DC3600400A7081E /* Image Comments API */,
 				A36C70692DC35DE500A7081E /* Shared API */,
 				A36C70682DC35DA400A7081E /* Shared API Infra */,
 				A3BE189E2DC0B5EB00834962 /* Image Comments Feature */,
@@ -314,6 +315,7 @@
 		A31EFB1A2C52091A000CB063 /* EssentialFeedLETests */ = {
 			isa = PBXGroup;
 			children = (
+				A36C70702DC3606800A7081E /* Image Comments API */,
 				A36C706D2DC35F8500A7081E /* Shared API */,
 				A36C706A2DC35E5000A7081E /* Shared API Infra */,
 				A39D87D52D93ED89007A89F1 /* Feed Presentation */,
@@ -341,7 +343,6 @@
 			isa = PBXGroup;
 			children = (
 				A37F41482D991B7C00944A94 /* Helpers */,
-				A37D69B32DC0B27C00AE5122 /* LoadImageCommentsFromRemoteUseCaseTests.swift */,
 				A38E48832C5CE8C1000D2BEC /* LoadFeedFromRemoteUseCaseTests.swift */,
 				A37F413C2D98F9F500944A94 /* LoadFeedImageDataFromRemoteUseCaseTests.swift */,
 			);
@@ -351,8 +352,6 @@
 		A354C5282C60932D000227A3 /* Feed API */ = {
 			isa = PBXGroup;
 			children = (
-				A37D69B12DC0B21400AE5122 /* RemoteImageCommentsLoader.swift */,
-				A37D69AF2DC0B1D400AE5122 /* ImageCommentsMapper.swift */,
 				A37F41452D991AA900944A94 /* Helpers */,
 				A354C5292C60933D000227A3 /* RemoteFeedLoader.swift */,
 				A34C4C212C6DAB8300B25EEB /* FeedItemsMapper.swift */,
@@ -409,6 +408,23 @@
 				A37F413E2D9913BC00944A94 /* HTTPClientSpy.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		A36C706F2DC3600400A7081E /* Image Comments API */ = {
+			isa = PBXGroup;
+			children = (
+				A37D69AF2DC0B1D400AE5122 /* ImageCommentsMapper.swift */,
+				A37D69B12DC0B21400AE5122 /* RemoteImageCommentsLoader.swift */,
+			);
+			path = "Image Comments API";
+			sourceTree = "<group>";
+		};
+		A36C70702DC3606800A7081E /* Image Comments API */ = {
+			isa = PBXGroup;
+			children = (
+				A37D69B32DC0B27C00AE5122 /* LoadImageCommentsFromRemoteUseCaseTests.swift */,
+			);
+			path = "Image Comments API";
 			sourceTree = "<group>";
 		};
 		A37F41452D991AA900944A94 /* Helpers */ = {
