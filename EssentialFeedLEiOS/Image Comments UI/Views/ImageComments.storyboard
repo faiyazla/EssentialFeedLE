@@ -54,7 +54,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="231"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="49" translatesAutoresizingMaskIntoConstraints="NO" id="1al-dJ-EPv">
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1al-dJ-EPv">
                                             <rect key="frame" x="20" y="11" width="353" height="209"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dbQ-UD-ZdL">
@@ -75,7 +75,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dYU-Yq-cPI">
-                                                    <rect key="frame" x="0.0" y="69.333333333333329" width="338.33333333333331" height="139.66666666666669"/>
+                                                    <rect key="frame" x="0.0" y="28.333333333333329" width="338.33333333333331" height="180.66666666666669"/>
                                                     <string key="text">comments comments comments comments comments comments comments comments comments comments comments comments comments comments comments</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
