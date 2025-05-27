@@ -18,7 +18,7 @@ public struct CellController {
         self.dataSourcePrefetching = dataSource
     }
     
-    public init(dataSource: UITableViewDataSource) {
+    public init(_ dataSource: UITableViewDataSource) {
         self.dataSource = dataSource
         self.delegate = nil
         self.dataSourcePrefetching = nil
