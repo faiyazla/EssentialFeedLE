@@ -16,7 +16,7 @@ extension ListViewController {
         tableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1) //This way we prevent cells from loading ahead of time with the diffable data source in all tests where load view is needed
     }
     
-    func simulateUserInitiatedFeedReload() {
+    func simulateUserInitiatedReload() {
         refreshControl?.simulatePullToRefresh()
     }
     
