@@ -156,11 +156,11 @@ class FeedUIIntegrationTests: XCTestCase {
         assertThat(sut, isRendering: [])
         
         loader.completeFeedLoading(with: [image0, image1], at: 0)
-         assertThat(sut, isRendering: [image0, image1])
-
-         sut.simulateLoadMoreFeedAction()
-         loader.completeLoadMore(with: [image0, image1, image2, image3], at: 0)
-         assertThat(sut, isRendering: [image0, image1, image2, image3])
+        assertThat(sut, isRendering: [image0, image1])
+        
+        sut.simulateLoadMoreFeedAction()
+        loader.completeLoadMore(with: [image0, image1, image2, image3], at: 0)
+        assertThat(sut, isRendering: [image0, image1, image2, image3])
         
         sut.simulateUserInitiatedReload()
         loader.completeFeedLoading(with: [image0, image1], at: 1)
@@ -175,16 +175,16 @@ class FeedUIIntegrationTests: XCTestCase {
         sut.simulateAppearance()
         loader.completeFeedLoading(with: [image0], at: 0)
         assertThat(sut, isRendering: [image0])
-
+        
         sut.simulateLoadMoreFeedAction()
         loader.completeLoadMore(with: [image0, image1], at: 0)
         assertThat(sut, isRendering: [image0, image1])
-
+        
         sut.simulateUserInitiatedReload()
         loader.completeFeedLoading(with: [], at: 1)
         assertThat(sut, isRendering: [])
     }
-
+    
     
     func test_loadFeedCompletion_doesNotAlterCurrentRenderingStateOnError() {
         let image0 = makeImage()
@@ -231,19 +231,35 @@ class FeedUIIntegrationTests: XCTestCase {
     }
     
     func test_loadMoreCompletion_rendersErrorMessageOnError() {
-         let (sut, loader) = makeSUT()
-         sut.simulateAppearance()
-         loader.completeFeedLoading()
-
-         sut.simulateLoadMoreFeedAction()
-         XCTAssertEqual(sut.loadMoreFeedErrorMessage, nil)
-
-         loader.completeLoadMoreWithError()
-         XCTAssertEqual(sut.loadMoreFeedErrorMessage, loadError)
-
-         sut.simulateLoadMoreFeedAction()
-         XCTAssertEqual(sut.loadMoreFeedErrorMessage, nil)
-     }
+        let (sut, loader) = makeSUT()
+        sut.simulateAppearance()
+        loader.completeFeedLoading()
+        
+        sut.simulateLoadMoreFeedAction()
+        XCTAssertEqual(sut.loadMoreFeedErrorMessage, nil)
+        
+        loader.completeLoadMoreWithError()
+        XCTAssertEqual(sut.loadMoreFeedErrorMessage, loadError)
+        
+        sut.simulateLoadMoreFeedAction()
+        XCTAssertEqual(sut.loadMoreFeedErrorMessage, nil)
+    }
+    
+    func test_tapOnLoadMoreErrorView_loadsMore() {
+        let (sut, loader) = makeSUT()
+        sut.simulateAppearance()
+        loader.completeFeedLoading()
+        
+        sut.simulateLoadMoreFeedAction()
+        XCTAssertEqual(loader.loadMoreCallCount, 1)
+        
+        sut.simulateTapOnLoadMoreFeedError()
+        XCTAssertEqual(loader.loadMoreCallCount, 1)
+        
+        loader.completeLoadMoreWithError()
+        sut.simulateTapOnLoadMoreFeedError()
+        XCTAssertEqual(loader.loadMoreCallCount, 2)
+    }
     
     func test_feedImageView_loadsImageURLWhenVisible() {
         let image0 = makeImage(url: URL(string: "http://url-0.com")!)
