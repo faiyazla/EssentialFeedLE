@@ -80,6 +80,18 @@ class FeedUIIntegrationTests: XCTestCase {
         XCTAssertEqual(loader.loadFeedCallCount, 3, "Expected yet another loading request once user initiates another reload")
     }
     
+    func test_loadMoreActions_requestMoreFromLoader() {
+        let (sut, loader) = makeSUT()
+        
+        sut.simulateAppearance()
+        loader.completeFeedLoading()
+        
+        XCTAssertEqual(loader.loadMoreCallCount, 0, "Expected no requests before until load more action")
+        
+        sut.simulateLoadMoreFeedAction()
+        XCTAssertEqual(loader.loadMoreCallCount, 1, "Expected load more request")
+    }
+    
     func test_loadingFeedIndicator_isVisibleWhileLoadingFeed() {
         let (sut, loader) = makeSUT()
         
@@ -367,8 +379,8 @@ class FeedUIIntegrationTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSUT(selection: @escaping (FeedImage) -> Void = { _ in },
-        file: StaticString = #filePath,
-        line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy) {
+                         file: StaticString = #filePath,
+                         line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
         let sut = FeedUIComposer.feedComposedWith(feedLoader: loader.loadPublisher,
                                                   imageLoader: loader.loadImageDataPublisher,
