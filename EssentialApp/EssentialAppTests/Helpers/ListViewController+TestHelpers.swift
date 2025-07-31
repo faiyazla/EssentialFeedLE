@@ -153,7 +153,7 @@ extension ListViewController {
     }
     
     func simulateLoadMoreFeedAction() {
-        guard let view = loadMoreCell() else { return }
+        guard let view = loadMoreFeedCell() else { return }
         
         let delegate = tableView.delegate
         let index = IndexPath(row: 0, section: feedLoadMoreSection)
@@ -161,12 +161,16 @@ extension ListViewController {
     }
     
     var isShowingLoadMoreFeedIndicator: Bool {
-        return loadMoreCell()?.isLoading == true
+        return loadMoreFeedCell()?.isLoading == true
     }
     
-    private func loadMoreCell() -> LoadMoreCell? {
+    private func loadMoreFeedCell() -> LoadMoreCell? {
         cell(row: 0, section: feedLoadMoreSection) as? LoadMoreCell
     }
+    
+    var loadMoreFeedErrorMessage: String? {
+         return loadMoreFeedCell()?.message
+     }
 }
 private class FakeRefreshControl: UIRefreshControl {
     private var _isRefreshing = false
