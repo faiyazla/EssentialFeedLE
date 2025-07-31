@@ -177,6 +177,10 @@ extension ListViewController {
     var loadMoreFeedErrorMessage: String? {
          return loadMoreFeedCell()?.message
      }
+    
+    var canLoadMoreFeed: Bool {
+        loadMoreFeedCell() != nil
+    }
 }
 private class FakeRefreshControl: UIRefreshControl {
     private var _isRefreshing = false
