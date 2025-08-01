@@ -21,12 +21,18 @@ extension ManagedCache {
     }
     
     static func newUniqueInstance(in context: NSManagedObjectContext) throws -> ManagedCache {
-        try find(in: context).map(context.delete)
+        try deleteCache(in: context)
         return ManagedCache(context: context)
     }
     
     var localFeed: [LocalFeedImage] {
         return feed.compactMap { ($0 as? ManagedFeedImage)?.local }
+    }
+    
+    static func deleteCache(in context: NSManagedObjectContext) throws {
+        try find(in: context)
+            .map(context.delete)
+            .map(context.save)
     }
 }
 
