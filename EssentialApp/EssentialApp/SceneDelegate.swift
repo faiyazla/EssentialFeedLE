@@ -177,7 +177,7 @@ extension Publisher {
     
     func logCacheMisses(url: URL, logger: Logger) -> AnyPublisher<Output, Failure> {
         return handleEvents(receiveCompletion: { result in
-            if case let .failure = result {
+            if case .failure = result {
                 logger.trace("cache miss for url: \(url)")
             }
         }).eraseToAnyPublisher()
