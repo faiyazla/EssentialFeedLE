@@ -1,5 +1,5 @@
 //
-//  LoadFeedUseCaseTests.swift
+//  LoadFeedFromCacheUseCaseTests.swift
 //  EssentialFeedLETests
 //
 //  Created by Faiyaz Ahmed on 18/02/2025.
@@ -8,7 +8,7 @@
 import XCTest
 import EssentialFeedLE
 
-final class LoadFeedUseCaseTests: XCTestCase {
+final class LoadFeedFromCacheUseCaseTests: XCTestCase {
     
     func test_init_doesNotMessageStoreUponCreation() {
         let (_, store) = makeSUT()
@@ -75,18 +75,18 @@ final class LoadFeedUseCaseTests: XCTestCase {
     
     func test_load_hasNoSideEffectOnRetrievalError() {
         let (sut, store) = makeSUT()
-        
-        sut.load() { _ in }
         store.completeRetrieval(with: anyNSError())
+
+        sut.load() { _ in }
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
     func test_load_hasNoSideEffectOnEmptyCache() {
         let (sut, store) = makeSUT()
-        
-        sut.load() { _ in }
         store.completeRetrievalWithEmptyCache()
+
+        sut.load() { _ in }
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
@@ -96,9 +96,9 @@ final class LoadFeedUseCaseTests: XCTestCase {
         let fixedCurrentDate = Date()
         let nonExpiryTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-        
-        sut.load() { _ in }
         store.completeRetrieval(with: feed.local, timestamp: nonExpiryTimestamp)
+
+        sut.load() { _ in }
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
@@ -108,9 +108,9 @@ final class LoadFeedUseCaseTests: XCTestCase {
         let fixedCurrentDate = Date()
         let expirationTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-                                   
-        sut.load() { _ in }
         store.completeRetrieval(with: feed.local, timestamp: expirationTimestamp)
+
+        sut.load() { _ in }
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
@@ -120,23 +120,11 @@ final class LoadFeedUseCaseTests: XCTestCase {
         let fixedCurrentDate = Date()
         let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-        
-        sut.load { _ in }
         store.completeRetrieval(with: feed.local, timestamp: expiredTimestamp)
+
+        sut.load { _ in }
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
-    }
-    
-    func test_load_doesNotDeliverResultAfterSUTInstanceHasBeingDeallocated() {
-        let store = FeedStoreSpy()
-        var sut: LocalFeedLoader? = LocalFeedLoader(store: store, currentDate: Date.init)
-        var receivedResult = [LocalFeedLoader.LoadResult]()
-        
-        sut?.load { receivedResult.append($0) }
-        sut = nil
-        store.completeRetrievalWithEmptyCache()
-        
-        XCTAssertTrue(receivedResult.isEmpty)
     }
     
     //MARK: Helpers
@@ -151,7 +139,8 @@ final class LoadFeedUseCaseTests: XCTestCase {
     
     private func expect(_ sut: LocalFeedLoader, toCompleteWith expectedResult: LocalFeedLoader.LoadResult, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "Wait for load completion")
-        
+        action()
+
         sut.load { receivedResult in
             switch (receivedResult, expectedResult) {
             case let (.success(receivedImages), .success(expectedImages)):
@@ -163,7 +152,6 @@ final class LoadFeedUseCaseTests: XCTestCase {
             }
             exp.fulfill()
         }
-        action()
         wait(for: [exp], timeout: 1.0)
     }
     
