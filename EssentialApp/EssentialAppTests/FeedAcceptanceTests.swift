@@ -112,7 +112,7 @@ class FeedAcceptanceTests: XCTestCase {
     }
     
     private func enterBackground(with store: CoreDataFeedStore) {
-        let sut = SceneDelegate(httpClient: HTTPClientStub.offline, store: store,scheduler: .immediateOnMainQueue)
+        let sut = SceneDelegate(httpClient: HTTPClientStub.offline, store: store)
         
         sut.sceneWillResignActive(UIApplication.shared.connectedScenes.first!)
     }
