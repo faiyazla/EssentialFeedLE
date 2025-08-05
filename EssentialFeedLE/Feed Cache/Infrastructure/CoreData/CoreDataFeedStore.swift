@@ -20,11 +20,15 @@ public final class CoreDataFeedStore {
     }
     
     public enum ContextQueue {
-         case main
-         case background
-     }
-
-     public init(storeURL: URL, contextQueue: ContextQueue = .background) throws  {
+        case main
+        case background
+    }
+    
+    public var contextQueue: ContextQueue {
+        context == container.viewContext ? .main : .background
+    }
+    
+    public init(storeURL: URL, contextQueue: ContextQueue = .background) throws  {
         guard let model = CoreDataFeedStore.model else {
             throw StoreError.modelNotFound
         }
@@ -45,8 +49,8 @@ public final class CoreDataFeedStore {
     }
     
     public func perform(_ action: @escaping () -> Void) {
-         context.perform(action)
-     }
+        context.perform(action)
+    }
     
     private func cleanUpReferencesToPersistentStores() {
         context.performAndWait {
