@@ -9,12 +9,10 @@ import Combine
 import EssentialFeedLE
 
 public extension Paginated {
-    
     init(items: [Item], loadMorePublisher: (() -> AnyPublisher<Self, Error>)?) {
         self.init(items: items, loadMore: loadMorePublisher.map { publisher in
             return { completion in
                 publisher().subscribe(Subscribers.Sink(receiveCompletion: { result in
-                    
                     if case let .failure(error) = result {
                         completion(.failure(error))
                     }
@@ -31,14 +29,12 @@ public extension Paginated {
         return {
             Deferred {
                 Future(loadMore)
-            }
-            .eraseToAnyPublisher()
+            }.eraseToAnyPublisher()
         }
     }
 }
 
 public extension HTTPClient {
-    
     typealias Publisher = AnyPublisher<(Data, HTTPURLResponse), Error>
     
     func getPublisher(url: URL) -> Publisher {
@@ -58,7 +54,6 @@ public extension FeedImageDataLoader {
     typealias Publisher = AnyPublisher<Data, Error>
     
     func loadImageDataPublisher(from url: URL) -> Publisher {
-        
         return Deferred {
             Future { completion in
                 completion(Result {
@@ -83,23 +78,26 @@ private extension FeedImageDataCache {
         try? save(data, for: url)
     }
 }
+
 public extension LocalFeedLoader {
     typealias Publisher = AnyPublisher<[FeedImage], Error>
     
     func loadPublisher() -> Publisher {
         Deferred {
             Future { completion in
-                completion(Result { try self.load() })
+                completion(Result{ try self.load() })
             }
         }
         .eraseToAnyPublisher()
     }
 }
+
 extension Publisher {
     func fallback(to fallbackPublisher: @escaping () -> AnyPublisher<Output, Failure>) -> AnyPublisher<Output, Failure> {
-        self.catch{ _ in fallbackPublisher() }.eraseToAnyPublisher()
+        self.catch { _ in fallbackPublisher() }.eraseToAnyPublisher()
     }
 }
+
 extension Publisher {
     func caching(to cache: FeedCache) -> AnyPublisher<Output, Failure> where Output == [FeedImage] {
         handleEvents(receiveOutput: cache.saveIgnoringResult).eraseToAnyPublisher()
@@ -109,6 +107,7 @@ extension Publisher {
         handleEvents(receiveOutput: cache.saveIgnoringResult).eraseToAnyPublisher()
     }
 }
+
 private extension FeedCache {
     func saveIgnoringResult(_ feed: [FeedImage]) {
         try? save(feed)
@@ -118,20 +117,20 @@ private extension FeedCache {
         saveIgnoringResult(page.items)
     }
 }
+
 extension Publisher {
-    func dispatchOnMainQueue() -> AnyPublisher<Output, Failure> {
-        receive(on: DispatchQueue.immediateWhenOnMainQueueScheduler).eraseToAnyPublisher()
+    func dispatchOnMainThread() -> AnyPublisher<Output, Failure> {
+        receive(on: DispatchQueue.immediateWhenOnMainThreadScheduler).eraseToAnyPublisher()
     }
 }
+
 extension DispatchQueue {
     static var immediateWhenOnMainQueueScheduler: ImmediateWhenOnMainQueueScheduler {
         ImmediateWhenOnMainQueueScheduler.shared
     }
     
     struct ImmediateWhenOnMainQueueScheduler: Scheduler {
-        
         typealias SchedulerTimeType = DispatchQueue.SchedulerTimeType
-        
         typealias SchedulerOptions = DispatchQueue.SchedulerOptions
         
         var now: SchedulerTimeType {
@@ -159,6 +158,40 @@ extension DispatchQueue {
             guard isMainQueue() else {
                 return DispatchQueue.main.schedule(options: options, action)
             }
+            
+            action()
+        }
+        
+        func schedule(after date: SchedulerTimeType, tolerance: SchedulerTimeType.Stride, options: SchedulerOptions?, _ action: @escaping () -> Void) {
+            DispatchQueue.main.schedule(after: date, tolerance: tolerance, options: options, action)
+        }
+        
+        func schedule(after date: SchedulerTimeType, interval: SchedulerTimeType.Stride, tolerance: SchedulerTimeType.Stride, options: SchedulerOptions?, _ action: @escaping () -> Void) -> Cancellable {
+            DispatchQueue.main.schedule(after: date, interval: interval, tolerance: tolerance, options: options, action)
+        }
+    }
+    
+    static var immediateWhenOnMainThreadScheduler: ImmediateWhenOnMainThreadScheduler {
+        ImmediateWhenOnMainThreadScheduler()
+    }
+    
+    struct ImmediateWhenOnMainThreadScheduler: Scheduler {
+        typealias SchedulerTimeType = DispatchQueue.SchedulerTimeType
+        typealias SchedulerOptions = DispatchQueue.SchedulerOptions
+        
+        var now: SchedulerTimeType {
+            DispatchQueue.main.now
+        }
+        
+        var minimumTolerance: SchedulerTimeType.Stride {
+            DispatchQueue.main.minimumTolerance
+        }
+        
+        func schedule(options: SchedulerOptions?, _ action: @escaping () -> Void) {
+            guard Thread.isMainThread else {
+                return DispatchQueue.main.schedule(options: options, action)
+            }
+            
             action()
         }
         
@@ -177,6 +210,10 @@ typealias AnyDispatchQueueScheduler = AnyScheduler<DispatchQueue.SchedulerTimeTy
 extension AnyDispatchQueueScheduler {
     static var immediateOnMainQueue: Self {
         DispatchQueue.immediateWhenOnMainQueueScheduler.eraseToAnyScheduler()
+    }
+    
+    static var immediateOnMainThread: Self {
+        DispatchQueue.immediateWhenOnMainThreadScheduler.eraseToAnyScheduler()
     }
     
     static func scheduler(for store: CoreDataFeedStore) -> AnyDispatchQueueScheduler {
@@ -216,6 +253,7 @@ extension AnyDispatchQueueScheduler {
         }
     }
 }
+
 extension Scheduler {
     func eraseToAnyScheduler() -> AnyScheduler<SchedulerTimeType, SchedulerOptions> {
         AnyScheduler(self)
@@ -252,6 +290,4 @@ struct AnyScheduler<SchedulerTimeType: Strideable, SchedulerOptions>: Scheduler 
     func schedule(after date: SchedulerTimeType, interval: SchedulerTimeType.Stride, tolerance: SchedulerTimeType.Stride, options: SchedulerOptions?, _ action: @escaping () -> Void) -> Cancellable {
         _scheduleAfterInterval(date, interval, tolerance, options, action)
     }
-    
 }
-
